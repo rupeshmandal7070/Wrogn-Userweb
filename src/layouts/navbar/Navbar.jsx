@@ -286,7 +286,7 @@ useEffect(()=>{
            </Box>
         
           <Box >
-          <Typography sx={{fontSize:{xs:'20px',sm:'20px',md:'30px'},fontWeight:'1000',color:'black'}}>WROGN</Typography>
+          <Typography onClick={()=>router.push('/')} sx={{fontSize:{xs:'20px',sm:'20px',md:'30px'},fontWeight:'1000',color:'black',cursor:'pointer'}}>WROGN</Typography>
           </Box>
          
                

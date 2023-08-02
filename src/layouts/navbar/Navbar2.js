@@ -252,7 +252,7 @@ useEffect(()=>{
         <NavLeft >
        
           
-        <Box sx={{display:{xs:'flex',sm:'flex',md:'block'},cursor:'pointer'}} onClick={handleClick}>
+        <Box sx={{display:{xs:'flex',sm:'flex',md:'block'},cursor:'pointer'}} onClick={()=>router.push('/')}>
             <HomeOutlined sx={{color:'rgba(0,0,0,0.7)',fontSize:{xs:'30px',sm:'30px',md:'45px'}}}/>
            </Box>
         
