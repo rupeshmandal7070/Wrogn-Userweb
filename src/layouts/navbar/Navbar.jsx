@@ -305,7 +305,7 @@ useEffect(()=>{
 
 
             <Typography onClick={() => router.push('/myAccount')} sx={{color:'black',display:'flex',justifyContent:'center',alignItems:'center',fontWeight:'500'}}>
-              <Avatar {...stringAvatar(userName)}/>{user && user.firstName && user.firstName}
+              <Avatar {...stringAvatar(userName)} alt='M'/>{user && user.firstName && user.firstName}
               <Typography sx={{display:Object.keys(user).length!==0?'none':'flex'}}>My Account</Typography>
               </Typography>
 

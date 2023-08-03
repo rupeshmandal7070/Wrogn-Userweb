@@ -252,12 +252,12 @@ useEffect(()=>{
         <NavLeft >
        
           
-        <Box sx={{display:{xs:'flex',sm:'flex',md:'block'},cursor:'pointer'}} onClick={()=>router.push('/')}>
-            <HomeOutlined sx={{color:'rgba(0,0,0,0.7)',fontSize:{xs:'30px',sm:'30px',md:'45px'}}}/>
+        <Box  sx={{display:{xs:'flex',sm:'flex',md:'block'},cursor:'pointer'}} >
+            <HomeOutlined onClick={()=>router.push('/')} sx={{color:'rgba(0,0,0,0.7)',fontSize:{xs:'30px',sm:'30px',md:'45px'}}}/>
            </Box>
         
           <Box >
-          <Typography sx={{fontSize:{xs:'20px',sm:'20px',md:'30px'},fontWeight:'1000',color:'black'}}>WROGN</Typography>
+          <Typography onClick={()=>router.push('/')} sx={{fontSize:{xs:'20px',sm:'20px',md:'30px'},fontWeight:'1000',color:'black',cursor:'pointer'}}>WROGN</Typography>
           </Box>
          
                

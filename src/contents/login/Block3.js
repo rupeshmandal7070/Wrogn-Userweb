@@ -9,7 +9,7 @@ const initialValues = {
   code:"",
   newPassword:""
 }
-const Block3 = ({setClose}) => {
+const Block3 = ({setClose,setOpen}) => {
     const handleClose = ()=>{
         setClose(false);
 
@@ -31,7 +31,8 @@ const Block3 = ({setClose}) => {
        const resetPassword = await axios.put(`${process.env.NEXT_PUBLIC_HOST}/userapp/auth/reset-password`,data);
        if(resetPassword.data.status==='SUCCESS'){
            action.resetForm();
-          handleClose()
+           setOpen(false)
+          setClose(false)
        }
        else
         return false;

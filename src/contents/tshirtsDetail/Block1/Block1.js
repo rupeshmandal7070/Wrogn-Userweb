@@ -6,12 +6,15 @@ import { Box, Button, Divider, TextField, Typography } from '@mui/material'
 
 import { useRouter } from 'next/router'
 import React from 'react'
+import { useState } from 'react'
 import { useEffect } from 'react'
 
 const Block1 = ({setOpen}) => {
 const dispatch = useDispatch();
 const {product} = useSelector((state) => state.product)
-const user = useSelector((state) => state.auth.user);
+const user = useSelector((state) => state.auth);
+const [filters, setFilters] = useState({"isDeleted":false,"userId":user && user.user &&  user.user.id})
+
 
 const {carts} = useSelector((state) => state.cart)
   const router = useRouter();
@@ -25,7 +28,7 @@ const {carts} = useSelector((state) => state.cart)
   }
 
   const fetchCarts = async() => {
-    let result = await dispatch(readCart())
+    let result = await dispatch(readCart(1,10,filters))
     console.log(result)
     if(result)
    return true

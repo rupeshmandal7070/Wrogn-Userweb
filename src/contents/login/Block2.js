@@ -1,5 +1,5 @@
 import { Close } from '@mui/icons-material'
-import { Box, Button, Divider, Popover, TextField, Typography } from '@mui/material'
+import { Box, Button, Dialog, Divider, Popover, TextField, Typography } from '@mui/material'
 import axios from 'axios'
 import { useFormik } from 'formik'
 import React from 'react'
@@ -31,7 +31,7 @@ const Block2 = ({setOpen}) => {
  const resetPassword = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/userapp/auth/reset-password-otp`,data);
  if(resetPassword.data.status==='SUCCESS'){
   action.resetForm();
- handleClose()
+ 
 }
  else
   return false;
@@ -64,20 +64,13 @@ const Block2 = ({setOpen}) => {
 
         <Box>
         <Button onClick={handleOpen} variant='contained' type='submit' sx={{width:'100%',borderRadius:'3px'}}>RESET PASSWORD</Button>      
-        <Popover open={close} onClose={handleClose} 
-  anchorOrigin={{
-    vertical:'center',
-    horizontal:'center'
-  }}
-  transformOrigin={{
-    vertical:'center',
-    horizontal:'center'
-  }}
+        <Dialog open={close} onClose={handleClose} 
+ 
         
                               >
-   <Block3 setClose={setClose}/>
+   <Block3 setClose={setClose} setOpen={setOpen}/>
     
-   </Popover>
+   </Dialog>
         </Box>
       
         </form>
