@@ -1,12 +1,14 @@
 import { createOrder } from '@/src/redux/slices/orders';
 import { useSelector,useDispatch } from '@/src/redux/store/store';
-import { Box, Button, Divider, Popover, Radio, TextField, Typography } from '@mui/material'
+import { Box, Button, Dialog, Divider, Popover, Radio, TextField, Typography } from '@mui/material'
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
 
 import Block2 from './Block2';
 
-import { updateUser } from '@/src/redux/slices/auth';
+import { getUser, updateUser } from '@/src/redux/slices/auth';
+import { useEffect } from 'react';
+import { Close } from '@mui/icons-material';
 
 
 const initialValues  = {
@@ -25,10 +27,26 @@ const Block1 = () => {
   // redux state setup
   const dispatch = useDispatch();
   const {carts,cartsPaginator} = useSelector((state) => state.cart);
-  const user = useSelector((state) => state.auth.user);
+  const {user} = useSelector((state) => state.auth);
  const {orders} = useSelector((state) => state.orders)
- const [address,setAddress] = useState({})
+ const [addressDetail,setAddressDetail] = useState({})
  const[open,setOpen] = useState(false)
+ const[close,setClose] = useState(false)
+//  console.log(addressDetail)
+
+let a = (user && user.address)
+console.log(a)
+
+ const fetchUser = async () => {
+  let result = await dispatch(getUser())
+  if(result){
+    return true
+  }
+  else
+  return false
+ }
+
+
 
  const {values , errors , handleBlur,handleChange,handleSubmit} = useFormik({
 
@@ -44,6 +62,7 @@ const Block1 = () => {
    console.log(result)
     if(result){
       action.resetForm();
+      setClose(false)
       
     }
     
@@ -53,15 +72,6 @@ const Block1 = () => {
 });
 
 
-
-
-
-
-
-// change address function
-
-
-// place order
 const handlePlaceOrder = async () =>{
  let products = carts.map((cart)=>{
      return {
@@ -91,9 +101,16 @@ const handlePlaceOrder = async () =>{
 const handleOpen = ()=>{
   setOpen(true);
 };
+const handleOpenDrawer = ()=>{
+  setClose(true);
+};
 
 const handleClose = ()=>{
   setOpen(false);
+};
+
+const handleCloseDrawer = ()=>{
+  setClose(false);
 };
 
 let mrp = 0;
@@ -111,6 +128,11 @@ let discount = ((mrp) - (cost))
 let gst = ((cost)*(0.08))
 let total = ((cost) + (gst))
 
+
+useEffect(()=>{
+fetchUser()
+
+},[])
   return (
     <>
 <Box sx={{width:'30%',display:'flex',justifyContent:'center',padding:'20px'}}>
@@ -119,49 +141,64 @@ let total = ((cost) + (gst))
       <Box sx={{width:'100%',display:'flex',justifyContent:'center'}}>
         <Box sx={{width:'85%',display:'flex',justifyContent:'center',gap:'40px'}}>
 
-             <Box  sx={{width:'70%',gap:'20px',display:'flex',border:'1px solid rgba(0,0,0,0.3)',padding:'10px'}}>
+             <Box  sx={{width:'70%',gap:'20px',display:'flex',border:'1px solid rgba(0,0,0,0.3)',padding:'10px',flexDirection:'column',height:'250px'}}>
 
-                <Box sx={{width:'30%',gap:'20px',display:'flex',flexDirection:'column',border:'1px solid rgba(0,0,0,0.3)',padding:'10px',background:'gray',alignItems:'center'}}>
-                    <Typography>ADDRESS</Typography>
-                    <Box >
+                    <Typography>Your Address</Typography>
+
+                    {user && user.address && user.address.map((item,index)=>(
+
+                <Box key={index} sx={{width:'100%',gap:'10px',display:Object.keys({a}).length !== 0 ? 'flex' :'none',flexDirection:'column',border:'1px solid rgba(0,0,0,0.3)',padding:'10px',background:'rgba(0,0,0,0.2)'}}>
+                    <Box sx={{display:'flex',gap:'5px',alignItems:'center'}}>
+                  <Radio/>
                       <Box sx={{display:'flex',gap:'10px'}}>
                       <Typography sx={{fontWeight:'600'}}>{user && user.firstName}</Typography>
                       <Typography sx={{fontWeight:'600'}}>{user && user.lastName}</Typography>
                       </Box>
-                      <Typography>Lacality- </Typography>
-                      <Typography>City-</Typography>
-                      <Typography>State-</Typography>
-                      <Typography>Pincode-</Typography>
-                      <Typography>Phone No- {user && user.phone}</Typography>
+                      <Typography> ,{item && item.locality}, </Typography>
+                      <Typography sx={{textTransform:'uppercase'}}> {item && item.city},</Typography>
+                      <Typography sx={{textTransform:'uppercase'}}> {item && item.state},</Typography>
+                      <Typography > {a && a[0].zipcode},</Typography>
+                      <Typography>Phone Number : {user && user.phone}</Typography>
                     </Box>
+                      <Typography onClick={handleOpenDrawer} sx={{color:'green',cursor:'pointer'}}>Edit address</Typography>
                 </Box>
 
-                  <Box sx={{width:'70%',gap:'20px' ,flexDirection:'column',border:'1px solid rgba(0,0,0,0.3)',padding:'10px'}}>
+))}
+
+
+                  <Box sx={{width:'70%',gap:'20px' ,flexDirection:'column',padding:'10px'}}>
                         
-                     <Typography>Add New / Edit Address</Typography>
+                     <Typography onClick={handleOpenDrawer} sx={{cursor:'pointer',fontWeight:'600'}}><Radio/>Add New / Edit Address</Typography>
 
-<form onSubmit={handleSubmit} autoComplete="off">
+                     <Dialog open={close} >
+
+<form onSubmit={handleSubmit} autoComplete="off" style={{width:'500px',height:'70vh',padding:'40px'}}>
                      <Box >
-                     <Box sx={{display:'flex',flexDirection:'column',gap:'10px'}}>
-                     <TextField variant='outlined' value={user && user.firstName} type='text' name='name'  sx={{width:'100%',"& fieldset": {height:'50px',borderRadius:'3px'},height:'50px'}}></TextField>
+                      <Box sx={{display:'flex',justifyContent:'space-between',paddingBottom:'30px'}}>
+                        <Typography sx={{color:'black',fontWeight:'600'}}>Add/Edit New Address</Typography>
+                        <Close onClick={handleCloseDrawer} sx={{cursor:'pointer'}}/>
+                      </Box>
+                     <Box sx={{display:'flex',flexDirection:'column',gap:'15px'}}>
+                     <TextField variant='outlined' value={user && user.firstName} size='small' type='text' name='name'  sx={{width:'100%',"& fieldset": {borderRadius:'3px'}}}></TextField>
 
-                     <TextField variant='outlined' value={user && user.phone} type='phone' name='phone'  sx={{width:'100%',"& fieldset": {height:'50px',borderRadius:'3px'},height:'50px'}}></TextField>
+                     <TextField variant='outlined' value={user && user.phone} type='phone' name='phone' size='small'  sx={{width:'100%',"& fieldset": {borderRadius:'3px'}}}></TextField>
 
-                     <TextField variant='outlined' label='Zipcode' type='number' name='zipcode' value={values.zipcode} onChange={handleChange} onBlur={handleBlur}   sx={{width:'100%',"& fieldset": {height:'50px',borderRadius:'3px'},height:'50px'}}></TextField>
+                     <TextField variant='outlined' label='Zipcode' type='number' name='zipcode' size='small' required='true' value={values.zipcode} onChange={handleChange} onBlur={handleBlur}   sx={{width:'100%',"& fieldset": {borderRadius:'3px'}}}></TextField>
 
-                     <TextField variant='outlined' label='Locality/town' type='text' name='locality'value={values.locality} onChange={handleChange} onBlur={handleBlur}  sx={{width:'100%',"& fieldset": {height:'50px',borderRadius:'3px'},height:'50px'}}></TextField>
+                     <TextField variant='outlined' label='Locality/town' type='text' size='small' required='true' name='locality'value={values.locality} onChange={handleChange} onBlur={handleBlur}  sx={{width:'100%',"& fieldset": {borderRadius:'3px'}}}></TextField>
 
-                     <TextField variant='outlined' label='city' type='text' name='city' value={values.city} onChange={handleChange} onBlur={handleBlur}  sx={{width:'100%',"& fieldset": {height:'50px',borderRadius:'3px'},height:'50px'}}></TextField>
+                     <TextField variant='outlined' label='city' type='text' name='city' size='small'  value={values.city} required='true' onChange={handleChange} onBlur={handleBlur}  sx={{width:'100%',"& fieldset": {borderRadius:'3px'}}}></TextField>
 
-                     <TextField variant='outlined' label='State' type='text' name='state' value={values.state} onChange={handleChange} onBlur={handleBlur}  sx={{width:'100%',"& fieldset": {height:'50px',borderRadius:'3px'},height:'50px'}}></TextField>
+                     <TextField variant='outlined' label='State' type='text' name='state' size='small' required='true' value={values.state} onChange={handleChange} onBlur={handleBlur}  sx={{width:'100%',"& fieldset": {borderRadius:'3px'}}}></TextField>
                      </Box>
-                     <Box sx={{display:'flex', gap:'20px'}}>
-                      <Button variant='outlined'>Cancel</Button>
-                      <Button variant='contained' type='submit'>Save</Button>
+                     <Box sx={{display:'flex', gap:'20px',marginTop:'20px'}}>
+                      <Button variant='outlined' onClick={handleCloseDrawer}>Cancel</Button>
+                      <Button variant='contained' type='submit' sx={{background:'black'}}>Save</Button>
                      </Box>
                      </Box>
 
                      </form>
+                     </Dialog>
                   </Box>
          
 </Box>
@@ -232,22 +269,15 @@ let total = ((cost) + (gst))
                 <Divider/>
 
 
-                 <Box >
+                 <Box sx={{display:Object.keys({a}).length !== 0 ? 'block' :'none'}}>
                  <Button onClick={handleOpen}  variant='contained' sx={{marginTop:'10px',width:'100%'}}>select payment method</Button>
-                 <Popover open={open} onClose={handleClose} 
-  anchorOrigin={{
-    vertical:'center',
-    horizontal:'center'
-  }}
-  transformOrigin={{
-    vertical:'center',
-    horizontal:'center'
-  }}
+                 <Dialog open={open} onClose={handleClose} 
+
  
    >
    <Block2 setOpen={setOpen} handlePlaceOrder={handlePlaceOrder} total={total} />
     
-   </Popover>
+   </Dialog>
                  </Box>
 
 

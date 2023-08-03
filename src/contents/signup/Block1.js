@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 
 
 const Box1= styled(Box)(({ theme }) => ({
-    height:'748px',
+    height:'600px',
     width:'40%',
     backgroundImage: `url(${"https://usplworld-static.s3.ap-south-1.amazonaws.com/static/img/wrogn/products/product_list/WITS1770.jpeg"})`,
     backgroundSize:'cover',
@@ -78,7 +78,7 @@ const Block1 = () => {
   return (
     <>
       <Box sx={{width:'100%',display:'flex',justifyContent:'center',padding:{xs:'20px 0px',sm:'50px 0px',md:'50px 0px'}}}>
-        <Box sx={{width:{xs:'95%',sm:'90%',md:'75%'},height:'750px',border:'1px solid black',display:'flex'}}>
+        <Box sx={{width:{xs:'95%',sm:'90%',md:'75%'},height:'600px',border:'1px solid black',display:'flex'}}>
            <Box1>
 
            </Box1>
@@ -111,45 +111,45 @@ const Block1 = () => {
                 <Box  sx={{display:'flex',gap:'20px',width:'100%'}}>
 
                   <Box sx={{width:'100%'}}>
-                <TextField variant='outlined' label='First Name' type='text' name='firstName' value={values.firstName} onChange={handleChange} onBlur={handleBlur} sx={{width:'100%',"& fieldset": {height:'50px',borderRadius:'3px'},height:'50px',}}></TextField>
+                <TextField variant='outlined' label='First Name' type='text' name='firstName' size='small' value={values.firstName} onChange={handleChange} onBlur={handleBlur} sx={{width:'100%',"& fieldset": {borderRadius:'3px'}}}></TextField>
                 {errors.firstName && touched.firstName ?(
                 <Typography sx={{fontSize:'12px',color:'red'}}>{errors.firstName}</Typography>):null}
                   </Box>
 
                 <Box sx={{width:'100%'}}>
-                <TextField variant='outlined' label='Last name' type='text' name='lastName' value={values.lastName} onChange={handleChange} onBlur={handleBlur} sx={{width:'100%',"& fieldset": {height:'50px',borderRadius:'3px'},height:'50px'}}></TextField>
+                <TextField variant='outlined' label='Last name' type='text' name='lastName' size='small' value={values.lastName} onChange={handleChange} onBlur={handleBlur} sx={{width:'100%',"& fieldset": {borderRadius:'3px'}}}></TextField>
                 {errors.lastName && touched.lastName ?(
                 <Typography sx={{fontSize:'12px',color:'red'}}>{errors.lastName}</Typography>):null}
                 </Box>
                 </Box>
                  
                  <Box sx={{width:'100%'}}>
-                <TextField variant='outlined' label='E-Mail Id' type='email' name='email' value={values.email} onChange={handleChange} onBlur={handleBlur} autoFocus='false' sx={{width:'100%',"& fieldset": {height:'50px',borderRadius:'3px'},height:'50px'}}></TextField>
+                <TextField variant='outlined' label='E-Mail Id' type='email' name='email' value={values.email} size='small' onChange={handleChange} onBlur={handleBlur} autoFocus='false' sx={{width:'100%',"& fieldset": {borderRadius:'3px'}}}></TextField>
                 {errors.email && touched.email ?(
                 <Typography sx={{fontSize:'12px',color:'red'}}>{errors.email}</Typography>):null}
                  </Box>
 
                  <Box sx={{width:'100%'}}>
-                <TextField variant='outlined' label='Pasword' type='password' name='password' value={values.password} onChange={handleChange} onBlur={handleBlur} sx={{width:'100%',"& fieldset": {height:'50px',borderRadius:'3px'},height:'50px'}}></TextField>
+                <TextField variant='outlined' label='Pasword' type='password' name='password' size='small' value={values.password} onChange={handleChange} onBlur={handleBlur} sx={{width:'100%',"& fieldset": {borderRadius:'3px'}}}></TextField>
                 {errors.password && touched.password ?(
                 <Typography sx={{fontSize:'12px',color:'red'}}>{errors.password}</Typography>):null}
                  </Box>
 
                  <Box sx={{width:'100%'}}>
-                <TextField variant='outlined' label='Mobile phone' type='number' name='phone' value={values.phone} onChange={handleChange} onBlur={handleBlur} sx={{width:'100%',"& fieldset": {height:'50px',borderRadius:'3px'},height:'50px'}}></TextField>
+                <TextField variant='outlined' label='Mobile phone' type='number' name='phone' size='small' value={values.phone} onChange={handleChange} onBlur={handleBlur} sx={{width:'100%',"& fieldset": {borderRadius:'3px'}}}></TextField>
                 {errors.phone && touched.phone ?(
                 <Typography sx={{fontSize:'12px',color:'red'}}>{errors.phone}</Typography>):null}
                  </Box>
 
                 <Box sx={{display:'flex',gap:'20px',width:'100%'}}>
                 <Box sx={{width:'100%'}}>
-                <TextField variant='outlined'  type='date' name='date' value={values.date} onChange={handleChange} onBlur={handleBlur} sx={{width:'100%',"& fieldset": {height:'50px',borderRadius:'3px'},height:'50px'}}></TextField>
+                <TextField variant='outlined'  type='date' name='date' value={values.date} size='small' onChange={handleChange} onBlur={handleBlur} sx={{width:'100%',"& fieldset": {borderRadius:'3px'}}}></TextField>
                 {errors.sex && touched.sex ?(
                 <Typography sx={{fontSize:'12px',color:'red'}}>{errors.sex}</Typography>):null}
                 </Box>
 
                 <Box sx={{width:'100%'}}>
-                <TextField variant='outlined' label='Sex' type='text' name='sex' value={values.sex} onChange={handleChange} onBlur={handleBlur} sx={{width:'100%',"& fieldset": {height:'50px',borderRadius:'3px'},height:'50px'}}></TextField>
+                <TextField variant='outlined' label='Sex' type='text' name='sex' size='small' value={values.sex} onChange={handleChange} onBlur={handleBlur} sx={{width:'100%',"& fieldset": {borderRadius:'3px'}}}></TextField>
                 {errors.sex && touched.sex ?(
                 <Typography sx={{fontSize:'12px',color:'red'}}>{errors.sex}</Typography>):null}
                 </Box>

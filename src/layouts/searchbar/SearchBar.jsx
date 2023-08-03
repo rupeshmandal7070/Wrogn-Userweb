@@ -31,7 +31,7 @@ const router = useRouter();
 
   return (
     <Box sx={{position:'relative'}}>
-      <Autocomplete
+      <Autocomplete size='small'
 
         
                           disablePortal
@@ -40,13 +40,13 @@ const router = useRouter();
                           onChange={(e,value) => value && router.push(`/tshirts/${value && value.title && value.title.shortTitle}`) } 
                         
                           renderInput={(params) => (
-                            <TextField
+                            <TextField size='small'
                             onChange={(event, value) => setQuery(event.target.value)} 
                               fullWidth
                               name="shortTitle"
                               {...params}
                               label='Search here ...'
-                              sx={{width:'300px' , "& fieldset": {height:'45px',borderRadius:'3px'},height:'45px'}}
+                              sx={{width:'300px' , "& fieldset": {borderRadius:'3px'}}}
                               
                             />
                            

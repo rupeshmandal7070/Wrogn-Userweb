@@ -360,7 +360,7 @@ useEffect(()=>{
             </Box>
 
             <Box onClick={() => router.push('/bag')} sx={{color:'black',display:'flex',justifyContent:'center',alignItems:'center',fontWeight:'500',cursor:'pointer',gap:'2px'}}>
-           <Badge badgeContent={cartsPaginator && cartsPaginator.itemCount &&  cartsPaginator.itemCount} color='primary' sx={{'& .MuiBadge-badge':{right:'4px',top:'8px'}}}>
+           <Badge badgeContent={cartsPaginator && cartsPaginator.itemCount &&  cartsPaginator.itemCount} color='primary'  sx={{'& .MuiBadge-badge':{right:'4px',top:'8px'}}}>
               <ShoppingCart sx={{color:'black',fontSize:{xs:'30px',sm:'30px',md:'30px'}}} />
             </Badge>
               Bag</Box>

@@ -118,13 +118,13 @@ console.log(data)
                
 
                 <Box sx={{width:'100%'}}>
-                <TextField variant='outlined' label='E-Mail Id' type='email' name='username' value={values.username} onChange={handleChange} onBlur={handleBlur} autoFocus='false' sx={{width:'100%',"& fieldset": {height:'50px',borderRadius:'3px'},height:'50px'}}></TextField>
+                <TextField variant='outlined' label='E-Mail Id' type='email' name='username' size='small' value={values.username} onChange={handleChange} onBlur={handleBlur} autoFocus='false' sx={{width:'100%',"& fieldset": {borderRadius:'3px'}}}></TextField>
                 {errors.username && touched.username ?(
                 <Typography sx={{fontSize:'12px',color:'red'}}>{errors.username}</Typography>):null}
                  </Box>
 
                  <Box sx={{width:'100%'}}>
-                <TextField variant='outlined' label='Pasword' type='password' name='password' value={values.password} onChange={handleChange} onBlur={handleBlur} sx={{width:'100%',"& fieldset": {height:'50px',borderRadius:'3px'},height:'50px'}}></TextField>
+                <TextField variant='outlined' label='Pasword' type='password' name='password' size='small' value={values.password} onChange={handleChange} onBlur={handleBlur} sx={{width:'100%',"& fieldset": {borderRadius:'3px'}}}></TextField>
                 {errors.password && touched.password ?(
                 <Typography sx={{fontSize:'12px',color:'red'}}>{errors.password}</Typography>):null}
                  </Box>

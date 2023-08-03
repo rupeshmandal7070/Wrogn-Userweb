@@ -49,14 +49,14 @@ export default function Block1() {
   const dispatch = useDispatch();
   const {products,productsPaginator,product} = useSelector((state) => state.product);
 
-  const {carts} = useSelector((state) => state.cart);
-  const user = useSelector((state) => state.auth.user);
+  const {carts,cartsPaginator} = useSelector((state) => state.cart);
+  const user = useSelector((state) => state.auth);
   const [filters,setFilters] = useState({$or:[{"category":router.query.index}]});
   const [page,setPage] = useState(1);
   const [limit,setLimit] = useState(12);
   const[skeletonstate,setSkeletonstate] = useState(true)
   const[backdrop,setBackdrop] = useState(false)
-
+let query = {"isDeleted":false,"userId":user && user.user &&  user.user.id}
 
   const fetchproducts = async() => {
     setSkeletonstate(true)
@@ -67,10 +67,18 @@ export default function Block1() {
   }
 
   console.log(products)
+
+  const fetchCarts = async() => {
+    let result = await dispatch(readCart(1,10,query))
+    console.log(result)
+    if(result)
+   return true
+ }
   
 
  useEffect(() =>{
        fetchproducts()
+       fetchCarts()
       
  },[page,filters])
 
