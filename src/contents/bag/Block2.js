@@ -14,16 +14,20 @@ const Block2 = () => {
   const [limit,setLimit] = useState(10);
   const[productDeatails,setProductDetails] = useState({})
   const[backdrop,setBackdrop] = useState(false)
-  const[skeletonstate,setskeletonstate] = useState(true)
+  const[skeletonstate,setskeletonstate] = useState(false)
   const [filters,setFilters] = useState({"isDeleted":false,"userId":user && user.user &&  user.user.id})
+
+
   const fetchCarts = async() => {
-    setskeletonstate(true)
+
+
     let result = await dispatch(readCart(page,limit,filters))
+  
     console.log(result)
     if(result)
-   setskeletonstate(false)
+     return true
+  
  }
-console.log(user.user.id)
 
  const handleDelete = async (cartId)=>{
  setBackdrop(true)
@@ -59,7 +63,7 @@ console.log(productDeatails)
  useEffect(() =>{
       fetchCarts()
       fetchDetails()
- },[page])
+ },[page,filters])
 
 
  const handleChangePage = (event,value) =>{
@@ -93,9 +97,9 @@ console.log(total)
         <Box sx={{width:'85%',display:'flex',justifyContent:'center',gap:'40px'}}>
 
 
-            {skeletonstate ?
+            {skeletonstate  ?
             <Box  sx={{width:'70%',gap:'20px',display:'flex',flexDirection:'column',border:'1px solid rgba(0,0,0,0.3)',padding:'10px'}}>
-              {carts && carts.map((item,index)=>(
+              {carts && carts.length >0 &&  carts.map((item,index)=>(
                   <Box sx={{display:'flex',border:'1px solid rgba(0,0,0,0.1)',padding:'15px',height:'320px',gap:'40px',flexDirection:'column'}}>
                     <Box sx={{display:'flex',gap:'40px'}}>
                     <Skeleton variant='rectengular' sx={{width:'170px',height:'200px'}}/>
@@ -126,7 +130,7 @@ console.log(total)
                    </Box>
 
 
-           {carts && carts.map((item,index)=>(
+           {carts && carts.length >0 && carts.map((item,index)=>(
                 <Box key={index} sx={{display:'flex',flexDirection:'column',border:'1px solid rgba(0,0,0,0.1)',padding:'15px',height:'320px',boxShadow:'rgba(0, 0, 0, 0.24) 0px 3px 8px'}}>
                     
 

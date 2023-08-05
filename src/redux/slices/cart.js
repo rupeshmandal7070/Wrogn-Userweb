@@ -63,9 +63,8 @@ export const createCart = (data) => async (dispatch) =>{
 }
 
 export const readCart = (page=1,limit=10,filters={}) => async (dispatch) =>{
-    console.log(filters)
-    console.log(page)
     const result = await cartApi.readCart(page,limit,filters);
+    console.log(result)
     if(result.status==='SUCCESS'){
         await dispatch(slice.actions.readCart(result.data))
         return true
